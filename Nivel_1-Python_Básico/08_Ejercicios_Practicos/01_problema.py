@@ -13,26 +13,38 @@
 # Puedes usar un while para repetir la calculadora hasta que el usuario indique lo contrario.
 # Considera usar una función calculadora(num1, num2, operacion).
 
-
 def calculadora(num1, num2, operacion):
-    if num2 < 0:
-        raise ZeroDivisionError("No se puede dividir por cero.")
-    suma = num1 + num2
-    resta = num1 - num2
-    multiplicar = num1 * num2
-    division = num1 / num2
-    return suma, resta, multiplicar, division
+    if operacion == "+":
+        return num1 + num2
+    elif operacion == "-":
+        return num1 - num2
+    elif operacion == "*":
+        return num1 * num2
+    elif operacion == "/":
+        if num2 == 0:
+            raise ZeroDivisionError("No se puede dividir entre cero.")
+        return num1 / num2
+    else:
+        print("Operación no válida.")
 
-print("Menú de la calculadora: ")
-print("Introduce 1 para suma ")
-print("Introduce 2 para resta ")
-print("Introduce 3 para multiplicar ")
-print("Introduce 4 para division ")
-print("Introduce Salir para terminar ")
-
-try:
-    num1 = int(input("Introduce el primer número: "))
-    num2 = int(input("Introduce el segundo número: "))
-    operacion = input("Introduce una operación: ")
-except Exception as e:
-    print("Ha sucedido un error: ", e)
+while True:
+    print("\n---Calculadora Simple---")
+    print("Operaciones disponibles: +, -, *, /")
+    try:
+        num1 = float(input("Introduce el primer número: "))
+        num2 = float(input("Introduce el segundo número: "))
+        operacion = input("Introduce la operacion (+, -, /, *): ").strip()
+        
+        resultado = calculadora(num1, num2, operacion)
+        print("Resultado: ", resultado)
+    except ValueError as ve:
+        print("Error de valor: ", ve)
+    except ZeroDivisionError as ze:
+        print("Error matemático: ", ze)
+    except Exception as e:
+        print("Se ha producido el siguiente error: ", e)
+    
+    repetir = input("¿Deseas hacer otra operación? (s/n): ").lower()
+    if repetir != "s":
+        print("¡Gracias por utilizar la calculadora!")
+        break
